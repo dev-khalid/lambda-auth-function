@@ -1,6 +1,17 @@
 import { Request, Response } from "express";
 
 export const authHandler = (req: Request, res: Response) => {
+  const { method, url, baseUrl, path, headers, query, body } = req;
+  console.log("Auth handler called", {
+    method,
+    url,
+    baseUrl,
+    path,
+    headers,
+    query,
+    body,
+  });
+
   const accessToken = req.query?.accessToken || req.headers?.authorization;
   let auth = "Deny"; // Default to Deny
   if (accessToken === "valid-token") {
