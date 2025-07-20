@@ -13,7 +13,7 @@ export const authHandler = (req: Request, res: Response) => {
   });
 
   const accessToken = req.query?.accessToken || req.headers?.authorization;
-  let auth = "Deny"; // Default to Deny
+  let auth = "Deny";
   if (accessToken === "valid-token") {
     auth = "Allow";
   }

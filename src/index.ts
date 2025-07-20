@@ -12,9 +12,9 @@ export const handler = async (
   event: APIGatewayProxyEvent,
   context: Context
 ): Promise<any> => {
-  const result = await handlerFunc(event, context) as APIGatewayProxyResult;
+  const result = (await handlerFunc(event, context)) as APIGatewayProxyResult;
   if (result && result.body) {
-    return result.body;
+    return JSON.parse(result.body);
   }
   return result;
 };

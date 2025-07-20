@@ -4,28 +4,28 @@ import { authHandler } from "./handlers/auth";
 const app = express();
 
 app.use(express.json()); // To parse JSON bodies
+app.use(express.urlencoded({ extended: true }));
 
-// app.get("/auth", authHandler);
-
-// TODO: For general purpose, I have to add authHandler here.
-// app.use("*", (req: Request, res: Response) => {
-//   res
-//     .status(404)
-//     .json({
-//       message: "Not Found",
-//       path: req.originalUrl,
-//       method: req.method,
-//       timestamp: new Date().toISOString(),
-//     });
-// });
 
 app.use("*", authHandler);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  res
-    .status(500)
-    .json({ message: "Something broke!", timestamp: new Date().toISOString() });
+  res.status(500).json({
+    message: "Something broke!",
+    timestamp: new Date().toISOString(),
+    error: err?.message,
+    err,
+    stack: err?.stack,
+    requestData: {
+      method: req.method,
+      url: req.url,
+      query: req.query,
+      params: req.params,
+      headers: req.headers,
+      body: req.body,
+    },
+  });
 });
 // Export the app for Lambda
 export { app };
