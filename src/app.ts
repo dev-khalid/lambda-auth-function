@@ -7,6 +7,7 @@ app.use(express.json()); // To parse JSON bodies
 
 app.get("/auth", authHandler);
 
+// TODO: For general purpose, I have to add authHandler here.
 app.use("*", (req: Request, res: Response) => {
   res
     .status(404)

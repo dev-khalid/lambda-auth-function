@@ -1,11 +1,26 @@
 import { Request, Response } from "express";
 
 export const authHandler = (req: Request, res: Response) => {
-  const accessToken = req.query.accessToken;
-
-  if (accessToken) {
-    return res.status(200).json(true);
-  } else {
-    return res.status(401).json({ error: "Unauthorized" });
+  const accessToken = req.query?.accessToken || req.headers?.authorization;
+  let auth = "Deny"; // Default to Deny
+  if (accessToken === "valid-token") {
+    auth = "Allow";
   }
+  const authResponse = {
+    principalId: "abc123",
+    policyDocument: {
+      Version: "2012-10-17",
+      Statement: [
+        {
+          Action: "execute-api:Invoke",
+          Resource: [
+            "arn:aws:execute-api:ap-southeast-1:899098335740:t1q1jgp7fd/*/*",
+          ],
+          Effect: auth,
+        },
+      ],
+    },
+  };
+
+  res.json(authResponse);
 };

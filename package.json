@@ -4,7 +4,7 @@
   "description": "A simple Express.js application to handle authentication via access token.",
   "main": "src/app.ts",
   "scripts": {
-    "start": "node index.js",
+    "start": "ts-node src/app.ts",
     "build": "tsc",
     "dev": "ts-node-dev src/app.ts",
     "build:lambda": "tsc && cp package*.json dist/",
