@@ -33,5 +33,5 @@ export const authHandler = (req: Request, res: Response) => {
     },
   };
 
-  res.json(authResponse);
+  return res.json(authResponse);
 };
