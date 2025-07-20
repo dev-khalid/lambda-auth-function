@@ -8,7 +8,6 @@
     "build": "tsc",
     "dev": "ts-node-dev src/app.ts",
     "build:lambda": "tsc && cp package*.json dist/",
-    "package": "npm run build:lambda && cd dist && npm ci --omit=dev && zip -r ../lambda-function.zip .",
     "test": "node test.js"
   },
   "dependencies": {
