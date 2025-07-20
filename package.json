@@ -4,11 +4,11 @@
   "description": "A simple Express.js application to handle authentication via access token.",
   "main": "src/app.ts",
   "scripts": {
-    "start": "ts-node src/app.ts",
+    "start": "node index.js",
     "build": "tsc",
     "dev": "ts-node-dev src/app.ts",
-    "build:lambda": "tsc && cp -r node_modules dist/",
-    "package": "npm run build:lambda && cd dist && zip -r ../lambda-function.zip .",
+    "build:lambda": "tsc && cp package*.json dist/",
+    "package": "npm run build:lambda && cd dist && npm ci --omit=dev && zip -r ../lambda-function.zip .",
     "test": "node test.js"
   },
   "dependencies": {

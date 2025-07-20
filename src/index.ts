@@ -1,10 +1,17 @@
 import ServerlessHttp from "serverless-http";
+import {
+  APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  Context,
+} from "aws-lambda";
 import { app } from "./app";
 
 const handlerFunc = ServerlessHttp(app);
-const handler = async (event: any, context: any): Promise<any> => {
+
+export const handler = async (
+  event: APIGatewayProxyEvent,
+  context: Context
+): Promise<any> => {
   const result = await handlerFunc(event, context);
   return result;
 };
-
-export default handler;
